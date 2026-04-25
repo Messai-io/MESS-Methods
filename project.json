@@ -1,0 +1,8 @@
+{
+  "name": "mess-methods",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "open-source/mess-methods",
+  "projectType": "library",
+  "tags": ["scope:open-source", "type:code", "lang:python"],
+  "targets": {}
+}
