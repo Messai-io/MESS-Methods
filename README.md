@@ -1,5 +1,18 @@
 # MESS-Methods
 
+<!-- MIRROR_DISCLOSURE_START -->
+
+> **This repository is a downstream mirror.** Source of truth lives in the
+> private `messai-ai` monorepo; this mirror is updated automatically on each
+> release. Issues and Discussions are welcome here. PRs against this mirror will
+> be redirected — see [CONTRIBUTING.md](./CONTRIBUTING.md).
+>
+> History was reset on **YYYY-MM-DD** as part of monorepo consolidation.
+> Versions tagged before that date (e.g. `v0.2.0`) remain accessible as
+> historical refs and retain their Zenodo DOIs.
+
+<!-- MIRROR_DISCLOSURE_END -->
+
 **Research methodology and experimental design tools for MES research**
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)

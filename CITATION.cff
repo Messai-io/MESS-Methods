@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+type: software
+title: "mess-methods"
+version: "0.1.0"
+abstract: "Research methodology and experimental design tools for MES research"
+repository-code: "https://github.com/Messai-io/MESS-methods.git"
+url: "https://github.com/Messai-io/MESS-methods"
+license: "MIT"
+authors:
+  - family-names: "Frons"
+    given-names: "Sam"
+    affiliation: "MESSAI"
