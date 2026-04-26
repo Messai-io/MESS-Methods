@@ -1,0 +1,60 @@
+# Auto-close incoming PRs to the public mirror with a friendly redirect.
+#
+# This workflow runs on the PUBLIC mirror repo (not the monorepo). It is
+# the single carve-out from the strip-at-source rule (Phase 1.5e of the
+# migration plan): every other workflow lives in the monorepo root, but
+# this one needs to fire ON the mirror in response to mirror-side PRs,
+# so it ships out to each public repo.
+#
+# Source of truth lives at tools/templates/close-prs.yml in the monorepo
+# and is copied verbatim into open-source/<pkg>/.github/workflows/close-prs.yml
+# by tools/scaffold-close-prs.ts. The lint-package-shape.ts allowlist
+# explicitly excludes this filename from the private-CI-leak check.
+
+name: close-pr-with-redirect
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: close-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.type != 'Bot'
+    steps:
+      - name: Comment + close
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const body = [
+              "Thanks for the PR! 🙏",
+              "",
+              "**This repository is a downstream mirror.** PRs against the mirror can't land here directly — see [CONTRIBUTING.md](./CONTRIBUTING.md) for the contribution flow.",
+              "",
+              "Quick summary of how to get your change in:",
+              "1. **Open an Issue first** describing what you're trying to change. That's the fastest path to alignment.",
+              "2. If you'd like to contribute the code yourself, push your fork's branch and reference it in the Issue. A maintainer will cherry-pick it into the upstream monorepo on your behalf and credit you via `Co-authored-by:`.",
+              "",
+              "Issues and Discussions are very welcome here — please use those to start the conversation. Closing this PR but the discussion is open.",
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.name,
+              issue_number: context.payload.pull_request.number,
+              body,
+            });
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.name,
+              pull_number: context.payload.pull_request.number,
+              state: 'closed',
+            });
