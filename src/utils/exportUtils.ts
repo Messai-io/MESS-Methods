@@ -227,10 +227,7 @@ export async function createShareableLink(
   // and generate a shareable link. For now, we'll simulate it.
 
   const shareId = generateShareId();
-  const baseUrl =
-    typeof window !== 'undefined'
-      ? window.location.origin
-      : 'https://github.com/Messai-io/MESS-Methods';
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://github.com/Messai-io/MESS-Methods';
   const url = `${baseUrl}/share/${type}/${shareId}`;
   const shortUrl = `${baseUrl}/s/${shareId.substring(0, 8)}`;
 
