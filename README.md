@@ -22,9 +22,9 @@
 
 MESS-Methods provides tools for research methodology and experimental design:
 
-- **ScientificValidator** - Physics-violation rule canon for MES papers
-  (P = V·I, CE ≤ 100%, V_cell ≤ V_oc, OCV thermodynamic ceiling, Faraday H₂
-  ceiling, …) — _the recommended entry point for data-quality checks_
+- **ScientificValidator** - Physics-violation rule canon for MES papers (P =
+  V·I, CE ≤ 100%, V*cell ≤ V_oc, OCV thermodynamic ceiling, Faraday H₂ ceiling,
+  …) — \_the recommended entry point for data-quality checks*
 - **Protocol Generator** - Generate lab-ready protocols from similar experiments
 - **Sample Size Calculator** - Statistical power analysis
 - **Reproducibility Checklist** - Materials/methods validation scoring
@@ -79,20 +79,25 @@ Each `Violation` carries:
 pipeline's `computationTrace`, so existing UI components can render it
 unchanged.
 
+**See also:** [cross-package joins](../../docs/data-join-patterns.md) —
+`Observation.canonical_slug` uses the mess-parameters parameter-slug vocabulary;
+the guide shows how to assemble observations and join across the MESS-\*
+datasets.
+
 ### Rule canon (10 rules)
 
-| Rule                                | Check                                       | Reference          |
-| ----------------------------------- | ------------------------------------------- | ------------------ |
-| `power_identity`                    | P_observed ≈ V_cell · I (OCV fallback)      | Logan-Hamelers 2006 §3; Newman-TA Ch. 22 |
-| `ce_bounds` / `ce_out_of_unit_interval` | 0 ≤ CE ≤ 100% (or 0 ≤ CE ≤ 1)           | Logan 2008 Ch. 5   |
-| `voltage_ordering`                  | V_cell ≤ V_oc (5% slack)                    | Newman-TA Ch. 22   |
-| `max_power_ohm`                     | P_peak ≤ V_oc²/(4·R_int)                    | Newman-TA Ch. 22   |
-| `temperature_out_of_plausible_range`| -20 °C ≤ T ≤ 100 °C (biological catalyst)   | Logan 2008 §2      |
-| `removal_out_of_unit_interval`      | 0 ≤ removal ≤ 100% (or [0, 1])              | Logan 2008 Ch. 5   |
-| `non_positive`                      | currentDensity, powerDensity > 0            | Logan-Hamelers 2006 §3 |
-| `ocv_thermodynamic_ceiling`         | OCV ≤ system-class ceiling                  | Logan 2008 §2.3    |
-| `within_paper_duplicate`            | Same slug, same conditionSet, < 5× spread (CE/R_int/OCV/EE allowlist) | Logan-Hamelers 2006 §3 |
-| `faraday_h2_ceiling`                | r_H₂ ≤ I·A/(2F·V) × 22.414 L/mol × 86400 s/d (MEC only) | Logan 2008 Ch. 9 |
+| Rule                                    | Check                                                                 | Reference                                |
+| --------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------- |
+| `power_identity`                        | P_observed ≈ V_cell · I (OCV fallback)                                | Logan-Hamelers 2006 §3; Newman-TA Ch. 22 |
+| `ce_bounds` / `ce_out_of_unit_interval` | 0 ≤ CE ≤ 100% (or 0 ≤ CE ≤ 1)                                         | Logan 2008 Ch. 5                         |
+| `voltage_ordering`                      | V_cell ≤ V_oc (5% slack)                                              | Newman-TA Ch. 22                         |
+| `max_power_ohm`                         | P_peak ≤ V_oc²/(4·R_int)                                              | Newman-TA Ch. 22                         |
+| `temperature_out_of_plausible_range`    | -20 °C ≤ T ≤ 100 °C (biological catalyst)                             | Logan 2008 §2                            |
+| `removal_out_of_unit_interval`          | 0 ≤ removal ≤ 100% (or [0, 1])                                        | Logan 2008 Ch. 5                         |
+| `non_positive`                          | currentDensity, powerDensity > 0                                      | Logan-Hamelers 2006 §3                   |
+| `ocv_thermodynamic_ceiling`             | OCV ≤ system-class ceiling                                            | Logan 2008 §2.3                          |
+| `within_paper_duplicate`                | Same slug, same conditionSet, < 5× spread (CE/R_int/OCV/EE allowlist) | Logan-Hamelers 2006 §3                   |
+| `faraday_h2_ceiling`                    | r_H₂ ≤ I·A/(2F·V) × 22.414 L/mol × 86400 s/d (MEC only)               | Logan 2008 Ch. 9                         |
 
 All numerical thresholds (log-ratio bands, 5% / 30% slacks, system-class OCV
 ceilings, the duplicate allowlist) are documented in
@@ -102,23 +107,22 @@ byte-for-byte.
 ### Citations
 
 - **Logan & Hamelers et al. (2006)** "Microbial Fuel Cells: Methodology and
-  Technology", _Environ. Sci. Technol._ 40(17), §3 — reporting conventions
-  (P = V·I, areal vs volumetric, V_cell vs V_oc, Coulombic-efficiency
-  definition).
-- **Logan, B.E. (2008)** _Microbial Fuel Cells_, Wiley.
-  §2.3 — thermodynamic OCV ceiling per system class; Ch. 5 — Coulombic
-  efficiency; Ch. 9 — MEC and Faraday-law H₂ bound.
+  Technology", _Environ. Sci. Technol._ 40(17), §3 — reporting conventions (P =
+  V·I, areal vs volumetric, V_cell vs V_oc, Coulombic-efficiency definition).
+- **Logan, B.E. (2008)** _Microbial Fuel Cells_, Wiley. §2.3 — thermodynamic OCV
+  ceiling per system class; Ch. 5 — Coulombic efficiency; Ch. 9 — MEC and
+  Faraday-law H₂ bound.
 - **Newman & Thomas-Alyea (2004)** _Electrochemical Systems_, 3rd ed., Wiley,
   Ch. 22 — porous-electrode conventions, Thevenin matched-load identity.
 
 ### Consumers
 
-- **v2 extractor** — imports `validate_*` functions for inline quality checks
-  at extraction time; flagged rows surface in the `consistency_flags` column.
+- **v2 extractor** — imports `validate_*` functions for inline quality checks at
+  extraction time; flagged rows surface in the `consistency_flags` column.
 - **Hunter pipeline** (`scripts/hunter/build_hunter_jsons.py`) — produces the
-  `/hunter` page's four-column dashboard. The hunter currently re-implements
-  the rules; the planned migration imports from this package so there is
-  exactly one set of thresholds in the codebase.
+  `/hunter` page's four-column dashboard. The hunter currently re-implements the
+  rules; the planned migration imports from this package so there is exactly one
+  set of thresholds in the codebase.
 - **External consumers** — the public `Messai-io/MESS-Methods` mirror exposes
   the same API.
 
