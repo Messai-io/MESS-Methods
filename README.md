@@ -3,13 +3,12 @@
 <!-- MIRROR_DISCLOSURE_START -->
 
 > **This repository is a downstream mirror.** Source of truth lives in the
-> private `messai-ai` monorepo; this mirror is updated automatically on each
-> release. Issues and Discussions are welcome here. PRs against this mirror will
-> be redirected — see [CONTRIBUTING.md](./CONTRIBUTING.md).
+> `messai-ai` monorepo; this mirror is updated on each release. Issues and
+> Discussions are welcome here. PRs against this mirror will be redirected — see
+> [CONTRIBUTING.md](./CONTRIBUTING.md).
 >
-> History was reset on **YYYY-MM-DD** as part of monorepo consolidation.
-> Versions tagged before that date (e.g. `v0.2.0`) remain accessible as
-> historical refs and retain their Zenodo DOIs.
+> History was reset as part of the 2026 monorepo consolidation. Versions tagged
+> before that (e.g. `v0.2.0`) remain accessible as historical refs.
 
 <!-- MIRROR_DISCLOSURE_END -->
 
