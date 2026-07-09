@@ -3,9 +3,8 @@
 Thanks for your interest in contributing to MESSAI's open-source packages.
 
 > **This repository is a downstream mirror.** Source of truth lives in the
-> private `messai-ai` monorepo; this mirror is updated automatically on each
-> release. PRs against this mirror will be auto-closed by a bot with a friendly
-> redirect to this guide.
+> `messai-ai` monorepo; this mirror is updated on each release. PRs against
+> this mirror will be redirected — see below.
 
 ## How to contribute
 
