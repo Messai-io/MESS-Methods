@@ -15,7 +15,6 @@
 **Research methodology and experimental design tools for MES research**
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![PyPI version](https://badge.fury.io/py/mess-methods.svg)](https://pypi.org/project/mess-methods/)
 
 ## Overview
 
@@ -127,9 +126,16 @@ byte-for-byte.
 
 ## Installation
 
+> **Not yet published to PyPI.** This package is source-available here while its
+> public API stabilises. Use it by cloning the mirror:
+
 ```bash
-pip install mess-methods
+git clone https://github.com/Messai-io/MESS-Methods.git
+cd MESS-Methods && pip install -e .
 ```
+
+Track [the packaging issue](https://github.com/Messai-io/MESS-Methods/issues)
+for the PyPI release.
 
 ## Features
 
@@ -239,8 +245,6 @@ mess-methods sample-size --effect 0.5 --alpha 0.05 --power 0.8
 ```
 
 ## API Reference
-
-See [API Documentation](docs/API.md) for complete reference.
 
 ## Contributing
 
