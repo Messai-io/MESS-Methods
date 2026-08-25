@@ -228,22 +228,6 @@ exporter.to_bibtex(references, 'refs.bib')
 exporter.to_pdf(report, 'report.pdf')
 ```
 
-## Command Line Interface
-
-```bash
-# Generate protocol
-mess-methods protocol --type MFC --electrode carbon_cloth
-
-# Extract from PDF
-mess-methods extract paper.pdf --output data.json
-
-# Validate data
-mess-methods validate data.csv --schema mfc_performance
-
-# Calculate sample size
-mess-methods sample-size --effect 0.5 --alpha 0.05 --power 0.8
-```
-
 ## API Reference
 
 ## Contributing

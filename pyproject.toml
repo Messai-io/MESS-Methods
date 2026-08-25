@@ -36,10 +36,9 @@ classifiers = [
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "pydantic>=2.0",
-    "PyPDF2>=3.0",
     "pandas>=2.0",
     "numpy>=1.24",
+    "structlog>=23.0",
 ]
 
 [project.optional-dependencies]
@@ -51,9 +50,6 @@ dev = [
     "mypy>=1.0",
 ]
 
-[project.scripts]
-mess-methods = "mess_methods.cli:main"
-
 [project.urls]
 Homepage = "https://github.com/Messai-io/MESS-Methods"
 Documentation = "https://docs.messai.io/methods"
@@ -61,7 +57,7 @@ Repository = "https://github.com/Messai-io/MESS-Methods"
 Issues = "https://github.com/Messai-io/MESS-Methods/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["mess_methods"]
+packages = ["src/mess_methods"]
 
 [tool.black]
 line-length = 88
